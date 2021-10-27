@@ -14,40 +14,40 @@
 }
 
 .App-header {
-  background-color: #282c34;
+  background-color: white;
   min-height: 10vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
-  color: white;
+  color: black;
 }
 
 .App-body {
-  background-color: #282c34;
+  background-color: white;
   min-height: 80vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   font-size: 10px;
-  color: white;
+  color: black;
 }
 
 .App-footer {
-  background-color: #282c34;
+  background-color: white;
   min-height: 10vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   font-size: 5px;
-  color: white;
+  color: black;
 }
 
 .App-link {
-  color: #61dafb;
+  color: dodgerblue;
 }
 
 @keyframes App-logo-spin {
