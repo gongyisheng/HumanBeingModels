@@ -1,1 +1,15 @@
 GET http://localhost:9437/test
+
+####
+
+#runSocialNetwork
+POST http://localhost:9437/socialNetwork/run
+Content-Type: application/json
+
+{
+  "explorerNum": 100,
+  "gridLength": 100,
+  "rounds": 10000,
+  "recommendType": 2
+}
+
