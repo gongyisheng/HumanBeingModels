@@ -1,28 +1,53 @@
 import React from "react";
-import {Box,Grid} from "grommet";
-import Dashboard from "./Dashboard";
+import { Route, Routes } from 'react-router-dom';
+import '../router/config';
+
+import { Box,Grid } from "grommet";
+
 import Console from "./Console";
+import Footer from "./Footer";
+import axios from "axios";
 
 class Main extends React.Component {
-  constructor(props) {
-    super(props);
+  handleRun(state){
+    console.log("run");
+    axios.post('/socialNetwork/run',{
+      gridLength: state.grid_length,
+      population: state.population,
+      rounds: state.rounds,
+      recomType: state.recom_type,
+    }).then((response)=>{
+      console.log(response);
+    });
   }
-
   render(){
+    const Dashboard = global._Dashboard;
+    const Document = global._Document;
+    const AboutMe = global._AboutMe;
+
     return (
       <Grid
         columns={['flex','auto']}
-        rows={['flex']}
+        rows={['flex','xxsmall']}
         areas={[
-          { name: 'dashboard', start: [0, 0], end: [0, 0]},
-          { name: 'console', start: [1, 0], end: [1, 0] },
+          { name: 'body', start: [0, 0], end: [0, 0]},
+          { name: 'console', start: [1, 0], end: [1, 1] },
+          { name: 'footer', start: [0, 1], end: [0, 1] }
         ]}
       >
-        <Box gridArea="dashboard" background={this.props.bodyColor}>
-          <Dashboard/>
+        <Box gridArea="body" background={this.props.bodyColor}>
+          <Routes>
+            <Route path='/' element={<Dashboard/>}/>
+            <Route path='/dashboard' element={<Dashboard/>}/>
+            <Route path='/document' element={<Document/>}/>
+            <Route path='/aboutMe' element={<AboutMe/>}/>
+          </Routes>
         </Box>
         <Box gridArea="console" background={this.props.consoleColor}>
-          <Console hoverColor={this.props.hoverColor}/>
+          <Console hoverColor={this.props.hoverColor} handleRun={this.handleRun}/>
+        </Box>
+        <Box gridArea="footer" background={this.props.bodyColor}>
+          <Footer/>
         </Box>
       </Grid>
     )

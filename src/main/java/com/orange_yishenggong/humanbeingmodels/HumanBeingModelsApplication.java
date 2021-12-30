@@ -1,6 +1,5 @@
 package com.orange_yishenggong.humanbeingmodels;
 
-import org.mybatis.spring.annotation.MapperScan;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
@@ -12,7 +11,6 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 
 @ComponentScan("com.orange_yishenggong")
 @SpringBootApplication
-//@MapperScan("com.orange_yishenggong.wiki.mapper")
 @EnableScheduling
 @EnableAsync
 public class HumanBeingModelsApplication {

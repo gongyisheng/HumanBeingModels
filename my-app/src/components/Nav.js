@@ -1,10 +1,12 @@
 import React from "react";
-import {Box,Grid} from "grommet";
+import { Link } from 'react-router-dom';
+import { Box,Grid } from "grommet";
+
+//global variables
+import '../main';
+const menus = global.menus;
 
 class Nav extends React.Component {
-  constructor(props) {
-    super(props);
-  }
   state = {
     tab_is_clicked:[0,0,0],
     tab_name:["dashboard","document","about-me"],
@@ -17,6 +19,25 @@ class Nav extends React.Component {
     }));
     console.log(this.state.tab_name[id]);
   }
+
+  renderMenu = ({title, name, key, id}) => {
+    return (
+      <Link to={key} key={name.toString()} style={{ textDecoration: 'none' }}>
+        <Box
+          gridArea={name}
+          background={this.state.tab_is_clicked[id]===0? this.props.backgroundColor:this.props.clickedColor}
+          justify="center"
+          pad={{left:"10%"}}
+          fill="vertical"
+          hoverIndicator={{ color : this.props.hoverColor }}
+          onClick={()=>{this.handleClick(id)}}
+        >
+          {title}
+        </Box>
+      </Link>
+    );
+  }
+
   render(){
     return (
       <Grid
@@ -33,30 +54,14 @@ class Nav extends React.Component {
         <Box
           gridArea="logo"
           background={this.props.backgroundColor}
+          align="center"
           justify="center"
-          ><h3>Human Being Models</h3></Box>
-
-        <Box
-          gridArea="dashboard"
-          background={this.state.tab_is_clicked[0]===0? this.props.backgroundColor:this.props.clickedColor}
-          justify="center"
-          pad={{left:"10%"}}
-          hoverIndicator={{ color : this.props.hoverColor }}
-          onClick={()=>{this.handleClick(0)}}>Dashboard</Box>
-        <Box
-          gridArea="document"
-          background={this.state.tab_is_clicked[1]===0? this.props.backgroundColor:this.props.clickedColor}
-          justify="center"
-          pad={{left:"10%"}}
-          hoverIndicator={{ color : this.props.hoverColor }}
-          onClick={()=>{this.handleClick(1)}}>Document</Box>
-        <Box
-          gridArea="about-me"
-          background={this.state.tab_is_clicked[2]===0? this.props.backgroundColor:this.props.clickedColor}
-          justify="center"
-          pad={{left:"10%"}}
-          hoverIndicator={{ color : this.props.hoverColor }}
-          onClick={()=>{this.handleClick(2)}}>About Me</Box>
+          ><h4>Social Network Model</h4></Box>
+        {
+          menus.map(item => {
+            return this.renderMenu(item);
+          })
+        }
       </Grid>
     )
   }

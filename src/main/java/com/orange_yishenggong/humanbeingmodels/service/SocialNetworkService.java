@@ -4,12 +4,12 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class SocialNetworkService {
-    public String run(int explorerNum, int gridLength, int rounds,int recommendType){
+    public String run(int gridLength, int population, int rounds,int recomType){
         StringBuilder sb = new StringBuilder();
-        sb.append(explorerNum+",");
         sb.append(gridLength+",");
+        sb.append(population+",");
         sb.append(rounds+",");
-        sb.append(recommendType+".");
+        sb.append(recomType+".");
         return sb.toString();
     }
 }

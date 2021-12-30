@@ -20,7 +20,7 @@ public class SocialNetworkController {
     @PostMapping("/run")
     public CommonResp run(@Valid @RequestBody runSocailNetworkReq req){
         CommonResp<String> resp = new CommonResp<>();
-        String str = service.run(req.getExplorerNum(),req.getGridLength(),req.getRounds(),req.getRecommendType());
+        String str = service.run(req.getGridLength(),req.getPopulation(),req.getRounds(),req.getRecomType());
         resp.setContent(str);
         return resp;
     }

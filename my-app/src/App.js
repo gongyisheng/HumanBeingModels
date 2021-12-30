@@ -1,13 +1,20 @@
+import React from "react";
 import './App.css';
 import Nav from './components/Nav';
 import Main from './components/Main';
 import axios from "axios";
 import { Grid, Box ,Grommet } from 'grommet';
+//global variables
+import './main';
+
+
 
 axios.defaults.baseURL = process.env["REACT_APP_BASE_URL"];
 
-function App() {
+class App extends React.Component {
+  render(){
   return (
+    <div>
     <Grommet plain>
       <Grid
         columns={['small', 'flex']}
@@ -26,7 +33,9 @@ function App() {
         </Box>
       </Grid>
     </Grommet>
+    </div>
   )
+  }
 }
 
 export default App;

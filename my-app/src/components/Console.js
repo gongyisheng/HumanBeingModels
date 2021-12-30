@@ -1,6 +1,5 @@
 import React from "react";
-import {Box,Button,Text,RangeInput,Collapsible,Grid,Grommet} from "grommet";
-import { grommet } from 'grommet/themes';
+import {Box,Button,Text,RangeInput,Collapsible,Grid} from "grommet";
 
 class Console extends React.Component {
   constructor(props) {
@@ -17,6 +16,7 @@ class Console extends React.Component {
   }
 
   handleReset = () => {
+    console.log("reset");
     this.setState(()=>({
       grid_length : 10,
       population : 50,
@@ -30,7 +30,7 @@ class Console extends React.Component {
     return (
       <Grid
         rows={['xxsmall','xxsmall', 'xxsmall','xxsmall','auto']}
-        columns={['xsmall','xsmall','xsmall','xsmall']}
+        columns={['auto','xsmall','xsmall','xsmall']}
         gap="xsmall"
         areas={[
           { name: 'run', start: [0, 0], end: [1, 0]},
@@ -54,7 +54,9 @@ class Console extends React.Component {
           gridArea="run"
           justify="center"
         >
-          <Button margin="small" primary type="submit" label="Run"/>
+          <Button margin="small" primary type="submit" label="Run"
+                  onClick={()=>{this.props.handleRun(this.state)}}
+          />
         </Box>
         <Box
           gridArea="reset"

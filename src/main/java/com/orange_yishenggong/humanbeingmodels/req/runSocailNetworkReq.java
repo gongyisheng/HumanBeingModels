@@ -1,17 +1,25 @@
 package com.orange_yishenggong.humanbeingmodels.req;
 
 public class runSocailNetworkReq {
-    private int explorerNum;
     private int gridLength;
+    private int population;
     private int rounds;
-    private int recommendType;
+    private int recomType;
 
-    public int getExplorerNum() {
-        return explorerNum;
+    public int getPopulation() {
+        return population;
     }
 
-    public void setExplorerNum(int explorerNum) {
-        this.explorerNum = explorerNum;
+    public void setPopulation(int population) {
+        this.population = population;
+    }
+
+    public int getRecomType() {
+        return recomType;
+    }
+
+    public void setRecomType(int recomType) {
+        this.recomType = recomType;
     }
 
     public int getGridLength() {
@@ -30,21 +38,13 @@ public class runSocailNetworkReq {
         this.rounds = rounds;
     }
 
-    public int getRecommendType() {
-        return recommendType;
-    }
-
-    public void setRecommendType(int recommendType) {
-        this.recommendType = recommendType;
-    }
-
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("runSocailNetworkReq{");
-        sb.append("explorerNum=").append(explorerNum);
-        sb.append(", gridLength=").append(gridLength);
+        sb.append("gridLength=").append(gridLength);
+        sb.append(", population=").append(population);
         sb.append(", rounds=").append(rounds);
-        sb.append(", recommendType=").append(recommendType);
+        sb.append(", recomType=").append(recomType);
         sb.append('}');
         return sb.toString();
     }
