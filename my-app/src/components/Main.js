@@ -38,9 +38,9 @@ class Main extends React.Component {
         <Box gridArea="body" background={this.props.bodyColor}>
           <Routes>
             <Route path='/' element={<Dashboard/>}/>
-            <Route path='/dashboard' element={<Dashboard/>}/>
-            <Route path='/document' element={<Document/>}/>
-            <Route path='/aboutMe' element={<AboutMe/>}/>
+            <Route path='/socialNetwork/dashboard' element={<Dashboard/>}/>
+            <Route path='/socialNetwork/document' element={<Document/>}/>
+            <Route path='/socialNetwork/aboutMe' element={<AboutMe/>}/>
           </Routes>
         </Box>
         <Box gridArea="console" background={this.props.consoleColor}>
