@@ -17,9 +17,7 @@ class Operator extends React.Component{
         params.gridLength = document.getElementById("gridLength").value;
         params.rounds = document.getElementById("rounds").value;
         params.recommendType = document.getElementById("recommendType").value;
-        axios.post("/socialNetwork/run",params).then((response) => {
-            console.log(response.data);
-        })
+
     }
     render() {
         return (
