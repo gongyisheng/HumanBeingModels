@@ -4,15 +4,15 @@ import {Box,Button,Text,RangeInput,Collapsible,Grid} from "grommet";
 class Console extends React.Component {
   constructor(props) {
     super(props);
-  }
-
-  state = {
-    grid_length: 10,
-    population: 50,
-    rounds: 100,
-    recom_type: 2,
-    recom_type_name: ["No Recommendation","Single Side Recommendation","Double Side Recommendation"],
-    recom_type_toggle: false,
+    this.state = {
+      token : this.props.token,
+      grid_length: 10,
+      population: 50,
+      rounds: 100,
+      recom_type: 2,
+      recom_type_name: ["No Recommendation","Single Side Recommendation","Double Side Recommendation"],
+      recom_type_toggle: false,
+    }
   }
 
   handleReset = () => {

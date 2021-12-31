@@ -1,4 +1,10 @@
-function footer() {
+import React from "react";
+
+class Footer extends React.Component{
+  constructor(props) {
+    super(props);
+  }
+  render(){
     return(
         <div align="center">
             <small>HumanBeingModels @Yisheng Gong 2021-</small>
@@ -12,6 +18,7 @@ function footer() {
             </a>
         </div>
     );
+  }
 }
 
-export default footer;
+export default Footer;

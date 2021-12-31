@@ -1,10 +1,27 @@
 package com.orange_yishenggong.humanbeingmodels.req;
 
 public class runSocailNetworkReq {
+    private String token;
     private int gridLength;
     private int population;
     private int rounds;
     private int recomType;
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+    public int getGridLength() {
+        return gridLength;
+    }
+
+    public void setGridLength(int gridLength) {
+        this.gridLength = gridLength;
+    }
 
     public int getPopulation() {
         return population;
@@ -22,14 +39,6 @@ public class runSocailNetworkReq {
         this.recomType = recomType;
     }
 
-    public int getGridLength() {
-        return gridLength;
-    }
-
-    public void setGridLength(int gridLength) {
-        this.gridLength = gridLength;
-    }
-
     public int getRounds() {
         return rounds;
     }
@@ -41,11 +50,13 @@ public class runSocailNetworkReq {
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("runSocailNetworkReq{");
-        sb.append("gridLength=").append(gridLength);
+        sb.append("token='").append(token).append('\'');
+        sb.append(", gridLength=").append(gridLength);
         sb.append(", population=").append(population);
         sb.append(", rounds=").append(rounds);
         sb.append(", recomType=").append(recomType);
         sb.append('}');
         return sb.toString();
     }
+
 }

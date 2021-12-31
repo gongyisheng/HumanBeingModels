@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.annotation.Resource;
 import javax.validation.Valid;
 
+/**
+ * @author Orange Meow
+ */
 @RestController
 @RequestMapping("/socialNetwork")
 public class SocialNetworkController {
@@ -20,7 +23,7 @@ public class SocialNetworkController {
     @PostMapping("/run")
     public CommonResp run(@Valid @RequestBody runSocailNetworkReq req){
         CommonResp<String> resp = new CommonResp<>();
-        String str = service.run(req.getGridLength(),req.getPopulation(),req.getRounds(),req.getRecomType());
+        String str = service.run(req.getToken(),req.getGridLength(),req.getPopulation(),req.getRounds(),req.getRecomType());
         resp.setContent(str);
         return resp;
     }

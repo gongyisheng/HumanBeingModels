@@ -9,9 +9,13 @@ import Footer from "./Footer";
 import axios from "axios";
 
 class Main extends React.Component {
+  constructor(props) {
+    super(props);
+  }
   handleRun(state){
     console.log("run");
     axios.post('/socialNetwork/run',{
+      token: state.token,
       gridLength: state.grid_length,
       population: state.population,
       rounds: state.rounds,
@@ -44,7 +48,7 @@ class Main extends React.Component {
           </Routes>
         </Box>
         <Box gridArea="console" background={this.props.consoleColor}>
-          <Console hoverColor={this.props.hoverColor} handleRun={this.handleRun}/>
+          <Console hoverColor={this.props.hoverColor} handleRun={this.handleRun} token={this.props.token}/>
         </Box>
         <Box gridArea="footer" background={this.props.bodyColor}>
           <Footer/>
