@@ -24,7 +24,7 @@ public class SocialNetworkService {
         sb.append(recomType+".");
         String log_id = MDC.get("LOG_ID");
         for(int i=0;i<10;i++){
-            wsService.sendInfo(token,"1,2,3",log_id);
+            wsService.sendInfo(token,i+","+i+",2,3",log_id);
             try {
                 Thread.sleep(2000);
             } catch (InterruptedException e) {

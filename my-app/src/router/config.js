@@ -4,6 +4,11 @@ import Loading from '../components/Loading';
 global._Dashboard = Loadable({
   loader: () => import('../page/Dashboard'),
   loading: Loading,
+  render(loaded, props){
+    let Component = loaded.default;
+    //console.log(props);
+    return (<Component data={props.data}/>);
+  }
 })
 
 global._Document = Loadable({

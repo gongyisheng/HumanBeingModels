@@ -23,6 +23,7 @@ class App extends React.Component {
         turning_point: 0,
       },
     };
+    this.initData = this.initData.bind(this);
   }
   //websocket
   onOpen = (websocket) => {
@@ -31,19 +32,18 @@ class App extends React.Component {
   };
   onMessage = (event) => {
     console.log('WebSocket收到消息：', event.data);
-    let { score,num,tp } = event.data.split(",");
-    let { average_score,exchange_num, } = this.state.data;
+    const [ x,score,num,tp ] = event.data.split(",");
+    const { average_score,exchange_num, } = this.state.data;
 
-    average_score.push(score);
-    exchange_num.push(num);
-
+    average_score[Number.parseInt(x)] = {x:Number.parseInt(x),y:Number.parseInt(score)};
+    exchange_num[Number.parseInt(x)] = {x:Number.parseInt(x),y:Number.parseInt(num)};
     this.setState({
       data: {
         average_score: average_score,
         exchange_num: exchange_num,
-        turning_point: tp,
+        turning_point: Number.parseInt(tp),
       }
-    })
+    });
   };
   onError = (websocket) => {
     console.log('WebSocket连接错误，状态码：', websocket.target.readyState)
@@ -62,6 +62,23 @@ class App extends React.Component {
     // 连接关闭的回调
     websocket.onclose = this.onClose;
   };
+
+  initData(rounds){
+    const array1 = [];
+    const array2 = [];
+    for(let i=0;i<rounds;i++){
+      array1.push({x:i,y:null});
+      array2.push({x:i,y:null});
+    }
+    console.log("initData: ",rounds);
+    this.setState({
+      data: {
+        average_score: array1,
+        exchange_num: array2,
+        turning_point: 0,
+      },
+    });
+  }
 
   componentDidMount() {
     if ('WebSocket' in window) {
@@ -83,7 +100,6 @@ class App extends React.Component {
       <Grid
         columns={['small', 'flex']}
         rows={['flex']}
-
         areas={[
           { name: 'nav', start: [0, 0], end: [0, 0] },
           { name: 'main', start: [1, 0], end: [1, 0] },
@@ -94,7 +110,7 @@ class App extends React.Component {
         </Box>
         <Box gridArea="main" background="light-2">
           <Main bodyColor="light-2" consoleColor="dark-1" hoverColor="dark-5"
-                websocket={this.state.websocket} token={this.state.token}/>
+                websocket={this.state.websocket} token={this.state.token} data={this.state.data} initData={this.initData}/>
         </Box>
       </Grid>
     </Grommet>

@@ -28,7 +28,7 @@ class Main extends React.Component {
     const Dashboard = global._Dashboard;
     const Document = global._Document;
     const AboutMe = global._AboutMe;
-
+    //console.log(this.state.data);
     return (
       <Grid
         columns={['flex','auto']}
@@ -41,14 +41,15 @@ class Main extends React.Component {
       >
         <Box gridArea="body" background={this.props.bodyColor}>
           <Routes>
-            <Route path='/' element={<Dashboard/>}/>
-            <Route path='/socialNetwork/dashboard' element={<Dashboard/>}/>
+            <Route path='/' element={<Dashboard data={this.props.data}/>}/>
+            <Route path='/socialNetwork/dashboard' element={<Dashboard data={this.props.data}/>}/>
             <Route path='/socialNetwork/document' element={<Document/>}/>
             <Route path='/socialNetwork/aboutMe' element={<AboutMe/>}/>
           </Routes>
         </Box>
         <Box gridArea="console" background={this.props.consoleColor}>
-          <Console hoverColor={this.props.hoverColor} handleRun={this.handleRun} token={this.props.token}/>
+          <Console hoverColor={this.props.hoverColor}
+                   handleRun={this.handleRun} handleResetData={this.props.initData} token={this.props.token}/>
         </Box>
         <Box gridArea="footer" background={this.props.bodyColor}>
           <Footer/>

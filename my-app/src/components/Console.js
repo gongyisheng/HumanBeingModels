@@ -55,7 +55,10 @@ class Console extends React.Component {
           justify="center"
         >
           <Button margin="small" primary type="submit" label="Run"
-                  onClick={()=>{this.props.handleRun(this.state)}}
+                  onClick={()=>{
+                    this.props.handleResetData(rounds);
+                    this.props.handleRun(this.state);
+                  }}
           />
         </Box>
         <Box
