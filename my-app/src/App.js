@@ -35,7 +35,7 @@ class App extends React.Component {
     const [ x,score,num,tp ] = event.data.split(",");
     const { average_score,exchange_num, } = this.state.data;
 
-    average_score[Number.parseInt(x)] = {x:Number.parseInt(x),y:Number.parseInt(score)};
+    average_score[Number.parseInt(x)] = {x:Number.parseInt(x),y:Number.parseFloat(score)};
     exchange_num[Number.parseInt(x)] = {x:Number.parseInt(x),y:Number.parseInt(num)};
     this.setState({
       data: {

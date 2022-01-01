@@ -1,7 +1,6 @@
 package com.orange_yishenggong.humanbeingmodels.service;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.orange_yishenggong.humanbeingmodels.environment.SocialNetworkEnv;
 import org.slf4j.MDC;
 import org.springframework.stereotype.Service;
 
@@ -12,9 +11,9 @@ import javax.annotation.Resource;
  */
 @Service
 public class SocialNetworkService {
-    private static final Logger LOG = LoggerFactory.getLogger(SocialNetworkService.class);
     @Resource
-    private WsService wsService;
+    private SocialNetworkEnv env;
+
     public String run(String token, int gridLength, int population, int rounds,int recomType) {
         StringBuilder sb = new StringBuilder();
         sb.append(token+",");
@@ -22,15 +21,15 @@ public class SocialNetworkService {
         sb.append(population+",");
         sb.append(rounds+",");
         sb.append(recomType+".");
-        String log_id = MDC.get("LOG_ID");
-        for(int i=0;i<10;i++){
-            wsService.sendInfo(token,i+","+i+",2,3",log_id);
-            try {
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
+
+        env.setToken(token);
+        env.setLogId(MDC.get("LOG_ID"));
+        env.setGridLength(gridLength);
+        env.setPopulation(population);
+        env.setRounds(rounds);
+        env.setRecomType(recomType);
+        env.initializeEnv();
+        env.runNetwork();
         return sb.toString();
     }
 }

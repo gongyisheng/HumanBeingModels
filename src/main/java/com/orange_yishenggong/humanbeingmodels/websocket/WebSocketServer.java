@@ -10,6 +10,9 @@ import javax.websocket.server.ServerEndpoint;
 import java.io.IOException;
 import java.util.HashMap;
 
+/**
+ * @author Orange Meow
+ */
 @Component
 @ServerEndpoint("/ws/{token}")
 public class WebSocketServer {
