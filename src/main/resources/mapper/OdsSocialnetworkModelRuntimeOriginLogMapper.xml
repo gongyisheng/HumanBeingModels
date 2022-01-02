@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.orange_yishenggong.humanbeingmodels.mapper.OdsSocialnetworkModelRuntimeOriginLogMapper">
+  <resultMap id="BaseResultMap" type="com.orange_yishenggong.humanbeingmodels.domain.OdsSocialnetworkModelRuntimeOriginLog">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="model_id" jdbcType="BIGINT" property="modelId" />
+    <result column="round" jdbcType="INTEGER" property="round" />
+    <result column="average_score" jdbcType="DOUBLE" property="averageScore" />
+    <result column="recom_count" jdbcType="INTEGER" property="recomCount" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, model_id, round, average_score, recom_count
+  </sql>
+  <select id="selectByExample" parameterType="com.orange_yishenggong.humanbeingmodels.domain.OdsSocialnetworkModelRuntimeOriginLogExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from ods_socialnetwork_model_runtime_origin_log
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ods_socialnetwork_model_runtime_origin_log
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from ods_socialnetwork_model_runtime_origin_log
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.orange_yishenggong.humanbeingmodels.domain.OdsSocialnetworkModelRuntimeOriginLogExample">
+    delete from ods_socialnetwork_model_runtime_origin_log
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.orange_yishenggong.humanbeingmodels.domain.OdsSocialnetworkModelRuntimeOriginLog">
+    insert into ods_socialnetwork_model_runtime_origin_log (id, model_id, round, 
+      average_score, recom_count)
+    values (#{id,jdbcType=BIGINT}, #{modelId,jdbcType=BIGINT}, #{round,jdbcType=INTEGER}, 
+      #{averageScore,jdbcType=DOUBLE}, #{recomCount,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.orange_yishenggong.humanbeingmodels.domain.OdsSocialnetworkModelRuntimeOriginLog">
+    insert into ods_socialnetwork_model_runtime_origin_log
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="modelId != null">
+        model_id,
+      </if>
+      <if test="round != null">
+        round,
+      </if>
+      <if test="averageScore != null">
+        average_score,
+      </if>
+      <if test="recomCount != null">
+        recom_count,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="modelId != null">
+        #{modelId,jdbcType=BIGINT},
+      </if>
+      <if test="round != null">
+        #{round,jdbcType=INTEGER},
+      </if>
+      <if test="averageScore != null">
+        #{averageScore,jdbcType=DOUBLE},
+      </if>
+      <if test="recomCount != null">
+        #{recomCount,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.orange_yishenggong.humanbeingmodels.domain.OdsSocialnetworkModelRuntimeOriginLogExample" resultType="java.lang.Long">
+    select count(*) from ods_socialnetwork_model_runtime_origin_log
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update ods_socialnetwork_model_runtime_origin_log
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.modelId != null">
+        model_id = #{record.modelId,jdbcType=BIGINT},
+      </if>
+      <if test="record.round != null">
+        round = #{record.round,jdbcType=INTEGER},
+      </if>
+      <if test="record.averageScore != null">
+        average_score = #{record.averageScore,jdbcType=DOUBLE},
+      </if>
+      <if test="record.recomCount != null">
+        recom_count = #{record.recomCount,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update ods_socialnetwork_model_runtime_origin_log
+    set id = #{record.id,jdbcType=BIGINT},
+      model_id = #{record.modelId,jdbcType=BIGINT},
+      round = #{record.round,jdbcType=INTEGER},
+      average_score = #{record.averageScore,jdbcType=DOUBLE},
+      recom_count = #{record.recomCount,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.orange_yishenggong.humanbeingmodels.domain.OdsSocialnetworkModelRuntimeOriginLog">
+    update ods_socialnetwork_model_runtime_origin_log
+    <set>
+      <if test="modelId != null">
+        model_id = #{modelId,jdbcType=BIGINT},
+      </if>
+      <if test="round != null">
+        round = #{round,jdbcType=INTEGER},
+      </if>
+      <if test="averageScore != null">
+        average_score = #{averageScore,jdbcType=DOUBLE},
+      </if>
+      <if test="recomCount != null">
+        recom_count = #{recomCount,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.orange_yishenggong.humanbeingmodels.domain.OdsSocialnetworkModelRuntimeOriginLog">
+    update ods_socialnetwork_model_runtime_origin_log
+    set model_id = #{modelId,jdbcType=BIGINT},
+      round = #{round,jdbcType=INTEGER},
+      average_score = #{averageScore,jdbcType=DOUBLE},
+      recom_count = #{recomCount,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

@@ -1,11 +1,16 @@
 package com.orange_yishenggong.humanbeingmodels.environment;
 
+import com.orange_yishenggong.humanbeingmodels.domain.OdsSocialnetworkModelParameterOriginLog;
+import com.orange_yishenggong.humanbeingmodels.domain.OdsSocialnetworkModelRuntimeOriginLog;
 import com.orange_yishenggong.humanbeingmodels.initializer.RandomInitializer;
+import com.orange_yishenggong.humanbeingmodels.mapper.OdsSocialnetworkModelParameterOriginLogMapper;
+import com.orange_yishenggong.humanbeingmodels.mapper.OdsSocialnetworkModelRuntimeOriginLogMapper;
 import com.orange_yishenggong.humanbeingmodels.model.role.Explorer;
 import com.orange_yishenggong.humanbeingmodels.service.WsService;
-import com.orange_yishenggong.humanbeingmodels.util.Direction;
-import com.orange_yishenggong.humanbeingmodels.util.EncoderAndDecoder;
-import com.orange_yishenggong.humanbeingmodels.util.MathFunc;
+import com.orange_yishenggong.humanbeingmodels.util.DirectionUtil;
+import com.orange_yishenggong.humanbeingmodels.util.EncoderAndDecoderUtil;
+import com.orange_yishenggong.humanbeingmodels.util.MathUtil;
+import com.orange_yishenggong.humanbeingmodels.util.SnowFlake;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -21,6 +26,7 @@ import java.util.Map;
 public class SocialNetworkEnv {
     private String token;
     private String logId;
+    private long modelId;
     private int gridLength;
     private int population;
     private int rounds;
@@ -32,11 +38,15 @@ public class SocialNetworkEnv {
      * 0: no recommendation, 1: single-side exchange, 2: double-side exchange
      */
     private int recomType;
-    private int recomCount;
     private int turningPoint;
+    private long startTime;
 
     @Resource
     private WsService wsService;
+    @Resource
+    private OdsSocialnetworkModelParameterOriginLogMapper parameterLogMapper;
+    @Resource
+    private OdsSocialnetworkModelRuntimeOriginLogMapper runtimeLogMapper;
 
     public int getGridLength() {
         return gridLength;
@@ -86,7 +96,14 @@ public class SocialNetworkEnv {
         this.logId = logId;
     }
 
+    public long getModelId() { return modelId; }
+
+    public void setModelId(long modelId) { this.modelId = modelId; }
+
     public void initializeEnv(){
+        SnowFlake snowFlake = new SnowFlake();
+        this.modelId = snowFlake.nextId();
+        this.startTime = System.currentTimeMillis();
         this.explorers = new Explorer[this.population];
         this.isRecommended = new double[this.population];
         this.scores = new double[this.population];
@@ -102,6 +119,8 @@ public class SocialNetworkEnv {
             explorers[i] = e;
             scores[i] = e.getCurrTargetMapVal();
         }
+        OdsSocialnetworkModelParameterOriginLog log = buildParameterLog();
+        parameterLogMapper.insert(log);
         System.out.println("initializeEnv success");
     }
 
@@ -109,8 +128,8 @@ public class SocialNetworkEnv {
         int x = e.getX();
         int y = e.getY();
         for(int j=0;j<4;j++){
-            int newX = x+ Direction.fourDir[j];
-            int newY = y+ Direction.fourDir[j+1];
+            int newX = x+ DirectionUtil.fourDir[j];
+            int newY = y+ DirectionUtil.fourDir[j+1];
             e.addToQueue(newX,newY);
         }
         e.visit();
@@ -130,11 +149,31 @@ public class SocialNetworkEnv {
         return Math.abs((double)(this.rounds-round)/this.rounds-averageScore)<0.001;
     }
 
+    private OdsSocialnetworkModelParameterOriginLog buildParameterLog(){
+        OdsSocialnetworkModelParameterOriginLog parameterLog = new OdsSocialnetworkModelParameterOriginLog();
+        parameterLog.setModelId(this.modelId);
+        parameterLog.setGridLength(this.gridLength);
+        parameterLog.setPopulation(this.population);
+        parameterLog.setRounds(this.rounds);
+        parameterLog.setRecomType(this.recomType);
+        parameterLog.setStartTime(this.startTime);
+        return parameterLog;
+    }
+
+    private OdsSocialnetworkModelRuntimeOriginLog buildRunTimeLog(int round,double score,int recomCount){
+        OdsSocialnetworkModelRuntimeOriginLog runtimeLog = new OdsSocialnetworkModelRuntimeOriginLog();
+        runtimeLog.setModelId(this.modelId);
+        runtimeLog.setRound(round);
+        runtimeLog.setAverageScore(score);
+        runtimeLog.setRecomCount(recomCount);
+        return runtimeLog;
+    }
+
     public void runNetwork(){
         this.turningPoint = 0;
         for(int i=0;i<this.rounds;i++){
             Map<String, List<Integer>> map = new HashMap<>();
-            this.recomCount = 0;
+            int recomCount = 0;
 
             //self-explore
             for(int j=0;j<this.population;j++){
@@ -142,14 +181,13 @@ public class SocialNetworkEnv {
                 selfExplore(e);
                 scores[j] = e.getCurrTargetMapVal();
 
-                String encodedPos = EncoderAndDecoder.posEncoder(e.getX(),e.getY(),"#");
+                String encodedPos = EncoderAndDecoderUtil.posEncoder(e.getX(),e.getY(),"#");
                 map.putIfAbsent(encodedPos,new ArrayList<>());
                 map.get(encodedPos).add(j);
             }
 
             //meet-and-make-recommendation
             for(String encodedPos: map.keySet()){
-                int[] pos = EncoderAndDecoder.posDecoder(encodedPos,"#");
                 List<Integer> list = map.get(encodedPos);
                 for(int j=0;j<list.size();j++){
                     for(int k=j+1;k<list.size();k++){
@@ -174,20 +212,23 @@ public class SocialNetworkEnv {
                                 }
                             }
                         }
-                        this.recomCount += recomType;
+                        recomCount += recomType;
                     }
                 }
             }
 
             //change turning point
-            double averageScore = MathFunc.calcAverage(this.scores);
+            double averageScore = MathUtil.calcAverage(this.scores);
             if(turningPoint==0&&isTurningPoint(i,averageScore)){
                 this.turningPoint = i;
             }
 
             //send message
-            String info = i+"," + MathFunc.round(averageScore,3) + "," + this.recomCount + "," + this.turningPoint;
+            String info = i+"," + MathUtil.round(averageScore,3) + "," + recomCount + "," + this.turningPoint;
+            OdsSocialnetworkModelRuntimeOriginLog log = buildRunTimeLog(i,averageScore,recomCount);
+            runtimeLogMapper.insert(log);
             wsService.sendInfo(token,info,logId);
+
         }
     }
 }

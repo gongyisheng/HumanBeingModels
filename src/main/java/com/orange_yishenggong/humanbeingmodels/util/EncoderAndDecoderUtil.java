@@ -3,7 +3,7 @@ package com.orange_yishenggong.humanbeingmodels.util;
 /**
  * @author Orange Meow
  */
-public class EncoderAndDecoder {
+public class EncoderAndDecoderUtil {
     public static String posEncoder(int X, int Y, String sep){
         return X+sep+Y;
     }
