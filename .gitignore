@@ -38,5 +38,5 @@ mvnw
 mvnw.cmd
 ### databaseURL/username/passwords
 /src/main/resources/properties/
-/src/main/resources/generator/
+/src/main/resources/generator/generator-config.xml
 /src/main/resources/application.properties
