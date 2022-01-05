@@ -10,7 +10,7 @@
     </parent>
     <groupId>com.orange_yishenggong</groupId>
     <artifactId>HumanBeingModels</artifactId>
-    <version>0.0.1</version>
+    <version>0.0.2</version>
     <name>HumanBeingModels</name>
     <description>Demo project for Spring Boot</description>
     <properties>
@@ -50,7 +50,7 @@
         </dependency>
     </dependencies>
     <build>
-        <finalName>/dist/${version}/${artifactId}</finalName>
+        <finalName>/dist/${project.version}/${project.artifactId}</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
