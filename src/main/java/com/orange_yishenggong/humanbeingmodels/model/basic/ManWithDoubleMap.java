@@ -10,7 +10,7 @@ public class ManWithDoubleMap {
     private int n;
 
     public boolean isValid(int x,int y){
-        return x>=0&&x<m&&y>=0&&y<m;
+        return x>=0&&x<m&&y>=0&&y<n;
     }
     public int getX() {
         return x;
@@ -53,7 +53,7 @@ public class ManWithDoubleMap {
     }
 
     public boolean setN(int n) {
-        if(m>0){
+        if(n>0){
             this.n = n;
             return true;
         }

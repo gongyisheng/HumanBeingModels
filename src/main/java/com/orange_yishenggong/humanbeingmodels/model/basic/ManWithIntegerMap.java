@@ -10,7 +10,7 @@ public class ManWithIntegerMap {
     private int n;
 
     public boolean isValid(int x,int y){
-        return x>=0&&x<m&&y>=0&&y<m;
+        return x>=0&&x<m&&y>=0&&y<n;
     }
     public int getX() {
         return x;
@@ -46,8 +46,6 @@ public class ManWithIntegerMap {
 
     public boolean initializeTargetMap(int m,int n){
         if(m>0&&n>0){
-            this.m = m;
-            this.n = n;
             targetMap = new int[m][n];
             return true;
         }
@@ -55,6 +53,10 @@ public class ManWithIntegerMap {
     }
     public int getTargetMapVal(int x,int y) {
         return isValid(x,y)? targetMap[x][y]:-1;
+    }
+
+    public int getCurrTargetMapVal() {
+        return getTargetMapVal(x,y);
     }
 
     public boolean setTargetMapVal(int x,int y,int val) {

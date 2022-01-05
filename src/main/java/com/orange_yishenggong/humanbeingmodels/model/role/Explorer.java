@@ -28,11 +28,11 @@ public class Explorer extends ManWithDoubleMap {
         return false;
     }
 
-    private PriorityQueue<int[]> toVisitQueue = new PriorityQueue<>(new Comparator<int[]>() {
+    private PriorityQueue<Integer> toVisitQueue = new PriorityQueue<>(new Comparator<Integer>() {
         @Override
-        public int compare(int[] o1, int[] o2) {
-            double val1 = Explorer.super.getTargetMapVal(o1[0],o1[1]);
-            double val2 = Explorer.super.getTargetMapVal(o2[0],o2[1]);
+        public int compare(Integer o1, Integer o2) {
+            double val1 = Explorer.super.getTargetMapVal(o1/Explorer.super.getM(),o1%Explorer.super.getM());
+            double val2 = Explorer.super.getTargetMapVal(o2/Explorer.super.getM(),o2%Explorer.super.getM());
             if(val1>val2){
                 return -1;
             }
@@ -46,7 +46,7 @@ public class Explorer extends ManWithDoubleMap {
     public boolean addToQueue(int x,int y){
         if(isValid(x,y)&&getVisitedMap(x,y)==0) {
             setVisitedMap(x,y,1);
-            toVisitQueue.offer(new int[]{x, y});
+            toVisitQueue.offer(x*super.getM()+y);
             return true;
         }
         return false;
@@ -54,12 +54,14 @@ public class Explorer extends ManWithDoubleMap {
 
     public boolean visit(){
         if(!toVisitQueue.isEmpty()){
-            int[] pos = toVisitQueue.poll();
-            if(getVisitedMap(pos[0],pos[1])==1){
-                setVisitedMap(pos[0],pos[1],2);
-                super.setX(pos[0]);
-                super.setY(pos[1]);
-                maxVisitedVal = Math.max(maxVisitedVal,super.getTargetMapVal(pos[0],pos[1]));
+            Integer encodedPos = toVisitQueue.poll();
+            int x = encodedPos/super.getM();
+            int y = encodedPos%super.getM();
+            if(getVisitedMap(x,y)==1){
+                setVisitedMap(x,y,2);
+                super.setX(x);
+                super.setY(y);
+                maxVisitedVal = Math.max(maxVisitedVal,super.getTargetMapVal(x,y));
                 return true;
             }
         }

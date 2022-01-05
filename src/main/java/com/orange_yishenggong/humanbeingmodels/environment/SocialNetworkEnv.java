@@ -117,7 +117,7 @@ public class SocialNetworkEnv {
             for(int i=0;i<list.size();i++){
                 for(int j=i+1;j<list.size();j++){
                     Explorer e1 = this.explorers[list.get(i)];
-                    Explorer e2 = this.explorers[list.get(j)];
+                    Explorer e2 = this.explorers    [list.get(j)];
                     if(this.recomType>0){
                         double p = Math.random();
                         if(p>0.5){
@@ -137,7 +137,7 @@ public class SocialNetworkEnv {
                             }
                         }
                     }
-                    this.recomCount += recomType;
+                    this.recomCount += recomType+1;
                 }
             }
         }
