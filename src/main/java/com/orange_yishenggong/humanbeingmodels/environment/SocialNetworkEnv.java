@@ -97,7 +97,7 @@ public class SocialNetworkEnv {
     }
 
     public void runNetworkOnce(){
-        Map<String, List<Integer>> map = new HashMap<>(this.population*3/4+1);
+        Map<Integer, List<Integer>> map = new HashMap<>(this.population*3/4+1);
         this.recomCount = 0;
 
         //self-explore
@@ -106,13 +106,13 @@ public class SocialNetworkEnv {
             selfExplore(e);
             scores[i] = e.getCurrTargetMapVal();
 
-            String encodedPos = EncoderAndDecoderUtil.posEncoder(e.getX(),e.getY(),"#");
+            int encodedPos = EncoderAndDecoderUtil.posEncoder(e.getX(),e.getY(),this.gridLength);
             map.putIfAbsent(encodedPos,new ArrayList<>());
             map.get(encodedPos).add(i);
         }
 
         //meet-and-make-recommendation
-        for(String encodedPos: map.keySet()){
+        for(Integer encodedPos: map.keySet()){
             List<Integer> list = map.get(encodedPos);
             for(int i=0;i<list.size();i++){
                 for(int j=i+1;j<list.size();j++){
