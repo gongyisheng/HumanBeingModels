@@ -22,7 +22,7 @@ npm install
 npm run start:dev
 ````
 ## License
-The project is under protection of MIT License. [Know more about MIT License](https://en.wikipedia.org/wiki/MIT_License)
+The project is [MIT Licensed](https://github.com/gongyisheng/HumanBeingModels/blob/master/LICENSE.md). [Know more about MIT License](https://en.wikipedia.org/wiki/MIT_License)
 ## Social Media
 [![Github](https://img.shields.io/badge/-Github-000?style=flat&logo=Github&logoColor=white)](https://www.github.com/gongyisheng)
 [![Linkedin](https://img.shields.io/badge/-LinkedIn-blue?style=flat&logo=Linkedin&logoColor=white)](https://www.linkedin.com/in/yisheng-gong1997/)  
