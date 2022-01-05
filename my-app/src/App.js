@@ -31,17 +31,18 @@ class App extends React.Component {
     console.log('token: ',this.state.token);
   };
   onMessage = (event) => {
-    console.log('WebSocket收到消息：', event.data);
-    const [ x,score,num,tp ] = event.data.split(",");
+    //console.log('WebSocket收到消息：', event.data);
     const { average_score,exchange_num, } = this.state.data;
-
-    average_score[Number.parseInt(x)] = {x:Number.parseInt(x),y:Number.parseFloat(score)};
-    exchange_num[Number.parseInt(x)] = {x:Number.parseInt(x),y:Number.parseInt(num)};
+    const arr = event.data.split("#");
+    for(let i=0;i<arr.length;i++){
+      const [ x,score,num ] = arr[i].split(",");
+      average_score[Number.parseInt(x)] = {x:Number.parseInt(x),y:Number.parseFloat(score)};
+      exchange_num[Number.parseInt(x)] = {x:Number.parseInt(x),y:Number.parseInt(num)};
+    }
     this.setState({
       data: {
         average_score: average_score,
         exchange_num: exchange_num,
-        turning_point: Number.parseInt(tp),
       }
     });
   };

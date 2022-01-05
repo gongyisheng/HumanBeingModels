@@ -9,7 +9,7 @@ import java.util.List;
  * @author Orange Meow
  */
 @Service
-public class testService {
+public class TestService {
     public String test(){
         return "testService works";
     }

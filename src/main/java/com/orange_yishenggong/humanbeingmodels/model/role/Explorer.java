@@ -4,13 +4,14 @@ import com.orange_yishenggong.humanbeingmodels.model.basic.ManWithDoubleMap;
 import java.util.Comparator;
 import java.util.PriorityQueue;
 
+/**
+ * @author Orange Meow
+ */
 public class Explorer extends ManWithDoubleMap {
     private int[][] visitedMap;
-    private double maxVisitedVal;
 
     public void initializeVisitedMap(){
         visitedMap = new int[super.getM()][super.getN()];
-        maxVisitedVal = super.getTargetMapVal(super.getX(),super.getY());
     }
 
     public int getVisitedMap(int x,int y) {
@@ -61,7 +62,6 @@ public class Explorer extends ManWithDoubleMap {
                 setVisitedMap(x,y,2);
                 super.setX(x);
                 super.setY(y);
-                maxVisitedVal = Math.max(maxVisitedVal,super.getTargetMapVal(x,y));
                 return true;
             }
         }

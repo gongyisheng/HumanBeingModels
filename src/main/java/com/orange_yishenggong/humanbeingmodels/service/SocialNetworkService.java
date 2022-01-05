@@ -51,28 +51,49 @@ public class SocialNetworkService {
         return runtimeLog;
     }
 
+    private void buildWsMessage(StringBuilder wsMessage, int round, double averageScore, int recomCount, char valSeg, char msgSeg){
+        wsMessage.append(round);
+        wsMessage.append(valSeg);
+        wsMessage.append(MathUtil.round(averageScore,3));
+        wsMessage.append(valSeg);
+        wsMessage.append(recomCount);
+        wsMessage.append(msgSeg);
+    }
+
     public String run(String token, int gridLength, int population, int rounds,int recomType) {
         long modelId = snowFlake.nextId();
         String logId = MDC.get("LOG_ID");
         long startTime = System.currentTimeMillis();
+        //websocket allows message size<128KB or it will cause fragment
+        int wsMsgSize = rounds/200+1;
+        StringBuilder wsMessage = new StringBuilder();
 
+        //initialize the environment
         env.setGridLength(gridLength);
         env.setPopulation(population);
         env.setRecomType(recomType);
 
         env.initializeEnv();
+
+        //insert parameter data
         OdsSocialnetworkModelParameterOriginLog parameterLog = buildParameterLog(modelId,gridLength,population,rounds,recomType,startTime);
         parameterLogMapper.insert(parameterLog);
+
         LOG.info("StartRunning:"+(double)(System.currentTimeMillis()-startTime)/1000+"s");
         try{
             for(int i=0;i<rounds;i++){
                 env.runNetworkOnce();
                 double averageScore = MathUtil.calcAverage(env.getScores());
 
-                String info = i+","+ MathUtil.round(averageScore,3) + "," + env.getRecomCount() + "," + 0;
                 OdsSocialnetworkModelRuntimeOriginLog runtimeLog = buildRunTimeLog(modelId,i,averageScore,env.getRecomCount());
                 runtimeLogMapper.insert(runtimeLog);
-                wsService.sendInfo(token,info,logId);
+
+                buildWsMessage(wsMessage,i,averageScore,env.getRecomCount(),',','#');
+                if(i%wsMsgSize==0||i==rounds-1){
+                    wsMessage.deleteCharAt(wsMessage.length()-1);
+                    wsService.sendInfo(token,wsMessage.toString(),logId);
+                    wsMessage.setLength(0);
+                }
             }
         }catch(Exception e){
             LOG.error("RunTimeError"+e.getMessage());

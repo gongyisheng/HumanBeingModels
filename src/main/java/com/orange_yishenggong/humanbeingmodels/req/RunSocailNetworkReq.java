@@ -1,6 +1,9 @@
 package com.orange_yishenggong.humanbeingmodels.req;
 
-public class runSocailNetworkReq {
+/**
+ * @author Orange Meow
+ */
+public class RunSocailNetworkReq {
     private String token;
     private int gridLength;
     private int population;
