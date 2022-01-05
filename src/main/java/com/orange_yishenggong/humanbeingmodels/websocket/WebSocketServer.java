@@ -32,7 +32,7 @@ public class WebSocketServer {
     public void onOpen(Session session, @PathParam("token") String token) {
         map.put(token, session);
         this.token = token;
-        LOG.info("有新连接：token：{}，session id：{}，当前连接数：{}", token, session.getId(), map.size());
+        LOG.info("SESSION OPEN: token:{}, session-id:{}, active-session-num:{}", token, session.getId(), map.size());
     }
 
     /**
@@ -41,7 +41,7 @@ public class WebSocketServer {
     @OnClose
     public void onClose(Session session) {
         map.remove(this.token);
-        LOG.info("连接关闭，token：{}，session id：{}！当前连接数：{}", this.token, session.getId(), map.size());
+        LOG.info("SESSION CLOSE: token:{}, session-id:{}, active-session-num:{}", this.token, session.getId(), map.size());
     }
 
     /**
@@ -49,7 +49,7 @@ public class WebSocketServer {
      */
     @OnMessage
     public void onMessage(String message, Session session) {
-        LOG.info("收到消息：{}，内容：{}", token, message);
+        LOG.info("MESSAGE RECEIVED: token:{}, session-id:{}, content:{}", token, session.getId(), message);
     }
 
     /**
@@ -57,20 +57,21 @@ public class WebSocketServer {
      */
     @OnError
     public void onError(Session session, Throwable error) {
-        LOG.error("发生错误", error);
+        LOG.error("ERROR: token:{}, session-id:{}, error:{}", token, session.getId(), error);
     }
 
     /**
      * 定向发消息
      */
     public void sendInfo(String token, String message) {
+        String sessionId = "-1";
         try {
             Session session = map.get(token);
+            sessionId = session.getId();
             session.getBasicRemote().sendText(message);
         } catch (IOException e) {
-            LOG.error("推送消息失败：{}，内容：{}", token, message);
+            LOG.error("SEND MESSAGE FAIL: token:{}, session-id:{}, content:{}", token, sessionId, message);
         }
-        LOG.info("推送消息：{}，内容：{}", token, message);
+        LOG.info("SEND MESSAGE SUCCEED: token:{}, session-id:{}, content:{}", token, sessionId, message);
     }
-
 }

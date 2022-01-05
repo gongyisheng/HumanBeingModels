@@ -7,6 +7,7 @@
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
     "axios": "^0.24.0",
+    "dotenv": "^10.0.0",
     "dotenv-cli": "^4.0.0",
     "formik": "^2.2.9",
     "grommet": "^2.19.1",
@@ -19,11 +20,12 @@
     "web-vitals": "^1.1.2"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start:dev": "dotenv -e .env.development react-scripts start",
+    "start:pro": "dotenv -e .env.production react-scripts start",
+    "build:dev": "dotenv -e .env.development react-scripts build",
+    "build:pro": "dotenv -e .env.production react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "build:dev": "dotenv -e .env.development react-scripts build"
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": [
