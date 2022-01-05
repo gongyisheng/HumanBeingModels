@@ -1,7 +1,7 @@
 # HumanBeingModels
 
 ## Description
-The project aims to build some models of networks in human being society to gain an overview of how network works and how people work together.
+The project aims to build some models to simulate the networks in human being society to gain an overview of how network works and how people work together.
 ## Prerequisites
 - JDK 11
 - Apache Maven 3.6.x
