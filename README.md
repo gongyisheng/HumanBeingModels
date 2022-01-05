@@ -1,15 +1,10 @@
 # HumanBeingModels
 
 ## Description
-This project aims to build some models of networks to gain an overview of how network works and how people work together.
+The project aims to build some models of networks in human being society to gain an overview of how network works and how people work together.
 ## Prerequisites
-#### Front-End  
-- React 17.0.2
-#### Back-End  
 - JDK 11
-- SpringBoot 2.5.6
-#### Database
-- MySql 8.0.25
+- Apache Maven 3.6.x
 ## Installation
 1. Clone the project code
 ````
@@ -26,7 +21,6 @@ npm install
 ````
 npm run start:dev
 ````
-## Contributing
 ## License
 ## Social Media
 [![Github](https://img.shields.io/badge/-Github-000?style=flat&logo=Github&logoColor=white)](https://www.github.com/gongyisheng)
