@@ -10,8 +10,9 @@ fi
 
 source /etc/profile
 # shellcheck disable=SC2164
-cd /root/humanbeingmodels/0.0.1
-nohup java -jar -Dspring.profiles.active=prod HumanBeingModels.jar >/root/hbm.0.0.1.log &
-tail -f /root/hbm.0.0.1.log
+cd /root/humanbeingmodels/0.0.2
+# !IMPORTANT set the limit of memory use
+nohup java -Xmx1024M -Xms512M -jar -Dspring.profiles.active=prod HumanBeingModels.jar >/root/hbm.0.0.2.log &
+tail -f /root/hbm.0.0.2.log
 
 echo "end publish"
