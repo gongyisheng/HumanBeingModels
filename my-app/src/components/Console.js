@@ -10,6 +10,7 @@ class Console extends React.Component {
       population: 50,
       rounds: 100,
       recom_type: 2,
+      population_ratio: 0.5,
       recom_type_name: ["No Recommendation","Single Side Recommendation","Double Side Recommendation"],
       recom_type_toggle: false,
     }
@@ -104,7 +105,7 @@ class Console extends React.Component {
               event.preventDefault();
               this.setState({
               grid_length: event.target.value,
-              population: Math.min(event.target.value*event.target.value,population),
+              population: Math.round(event.target.value*event.target.value*this.state.population_ratio),
               rounds:event.target.value*event.target.value
             })}
             }
@@ -121,7 +122,10 @@ class Console extends React.Component {
             value={population}
             onChange={ event => {
               event.preventDefault();
-              this.setState({population:event.target.value})}
+              this.setState({
+                population:event.target.value,
+                population_ratio: event.target.value/(this.state.grid_length*this.state.grid_length),
+              })}
             }
           ></RangeInput>
         </Box>
