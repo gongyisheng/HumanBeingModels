@@ -2,9 +2,6 @@ import React from "react";
 import {VictoryChart, VictoryLine} from "victory";
 
 class RealTimeChart extends React.Component{
-  constructor(props) {
-    super(props);
-  }
   render(){
     return(
       <VictoryChart height={400} width={400}

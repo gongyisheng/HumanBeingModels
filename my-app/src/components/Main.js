@@ -9,9 +9,6 @@ import Footer from "./Footer";
 import axios from "axios";
 
 class Main extends React.Component {
-  constructor(props) {
-    super(props);
-  }
   handleRun(state){
     console.log("run");
     axios.post('/socialNetwork/run',{

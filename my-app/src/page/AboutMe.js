@@ -18,11 +18,27 @@ class AboutMe extends React.Component {
           My favorite thing is to make new friends and chat with them.
           I hope that I can share my ideas with everyone, approach the truth
           step by step in an open environment and witness its growth.
-          If you are interested in me or my ideas, feel free to contact me on <a href="https://www.linkedin.com/in/yisheng-gong1997/" target="_blank" rel="noreferrer">linkedin</a>
-          , <a href="https://github.com/gongyisheng" target="_blank" rel="noreferrer">github</a> or write
-          an <a href="mailto:yishenggong9437@gmail.com?subject=[GitHub]%20HumanBeingModels" target="_blank" rel="noreferrer">e-mail</a>.</p>
+          If you are interested in me or my ideas, feel free to contact me
+          on <a
+            href="https://www.linkedin.com/in/yisheng-gong1997/"
+            target="_blank"
+            rel="noreferrer"
+          >linkedin</a>
+          , <a
+            href="https://github.com/gongyisheng"
+            target="_blank"
+            rel="noreferrer"
+          >github</a> or write
+          an <a
+            href="mailto:yishenggong9437@gmail.com?subject=[GitHub]%20HumanBeingModels"
+            target="_blank"
+            rel="noreferrer"
+          >e-mail</a>.</p>
         <p>Besides, I'm also a skilled novel writer and poet. My collection
-          is <a href="https://mp.weixin.qq.com/mp/appmsgalbum?action=getalbum&__biz=MzI2Mzg1OTMxOQ==&scene=2&album_id=2184096961665073152&count=3" target="_blank" rel="noreferrer">here</a> if
+          is <a
+            href="https://mp.weixin.qq.com/mp/appmsgalbum?action=getalbum&__biz=MzI2Mzg1OTMxOQ==&scene=2&album_id=2184096961665073152&count=3"
+            target="_blank"
+            rel="noreferrer">here</a> if
           you can understand Chinese very well. It's all about imagination and some wonderful emotions I want to record in my life.
           Hope you will also love my stories :) </p>
         <p>Thank you!</p>

@@ -3,10 +3,6 @@ import RealTimeChart from "../components/RealTimeChart";
 import {Box,Text,Grid} from "grommet";
 
 class Dashboard extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     return (
       <Grid
