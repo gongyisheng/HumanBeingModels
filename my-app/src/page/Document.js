@@ -1,11 +1,10 @@
 import React from "react";
-import { Box } from 'grommet';
 import '../App.css';
 
 class Document extends React.Component {
   render() {
     return (
-      <Box className="document">
+      <div className="document">
         <h2>Background</h2>
         <p>The origin of the idea of this project comes from <a
           href="https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life"
@@ -93,7 +92,7 @@ class Document extends React.Component {
               Two ways to add a position to the queue:
               <b> near the explorer's current position (one block away)</b> or <b>recommended by others</b></p>
             <p className="document-list-item-description">
-              Only unvisited positions can be added to toVisit queue.</p>
+              <b>Only unvisited positions</b> can be added to toVisit queue.</p>
           </p>
           <p className="document-paragraph">
             <h4>Parameters</h4>
@@ -111,7 +110,7 @@ class Document extends React.Component {
                 <p className="document-list-item-description">
                   <b>Single-side recommendation</b> : Randomly pick an explorer from A and B and the one will make recommendations to the other.</p>
                 <p className="document-list-item-description">
-                  <b>No recommendation</b> : A will not make recommendations to B and so will not B.</p>
+                  <b>No recommendation</b> : A will not make recommendations to B and neither will B.</p>
               </li>
               <li className="document-unordered-list">
                 more parameters coming...
@@ -134,7 +133,7 @@ class Document extends React.Component {
           <h2>How to play the game</h2>
           <p>Try different parameters and observe the outline of the curve, make records of its peak, etc... Finding part is coming soon lol</p>
         </p>
-      </Box>
+      </div>
     );
   }
 }
