@@ -59,6 +59,30 @@
   }
 }
 
-.About-me {
+.document {
+  padding: 10px;
+}
+
+.document-paragraph {
+  padding-left: 10px;
+  margin: 0px;
+}
+
+.document-unordered-list {
+  margin: 0px;
+}
+.document-list-item {
+  margin-bottom: 5px;
+}
+
+.document-list-item-title {
+  margin: 0px;
+}
+.document-list-item-description {
+  margin: 0px;
+  font-style:italic;
+}
+
+.about-me {
   padding: 10px;
 }

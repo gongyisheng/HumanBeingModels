@@ -4,7 +4,7 @@ import {Image,Box} from "grommet";
 class AboutMe extends React.Component {
   render() {
     return (
-      <div className="About-me">
+      <div className="about-me">
         <Box align="center" justify="center" height="medium" width="any CSS size">
           <Image fit="contain" alignSelf="stretch" src="/static/img/about-me-profile.jpg"/>
         </Box>

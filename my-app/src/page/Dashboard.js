@@ -14,11 +14,11 @@ class Dashboard extends React.Component {
         ]}
       >
         <Box gridArea="chart1" background="light-2">
-          <Text textAlign="center" margin="small">Average Visiting Score by Rounds</Text>
+          <Text textAlign="center" margin="small">Average Visiting Preference Score by Rounds</Text>
           <RealTimeChart data={this.props.data.average_score} ymax="1"/>
         </Box>
         <Box gridArea="chart2" background="light-2">
-          <Text textAlign="center" margin="small">Information Exchange times by Rounds</Text>
+          <Text textAlign="center" margin="small">Number of Recommendation Behavior by Rounds</Text>
           <RealTimeChart data={this.props.data.exchange_num}/>
         </Box>
       </Grid>
