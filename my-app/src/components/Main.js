@@ -9,18 +9,7 @@ import Footer from "./Footer";
 import axios from "axios";
 
 class Main extends React.Component {
-  handleRun(state){
-    console.log("run");
-    axios.post('/socialNetwork/run',{
-      token: state.token,
-      gridLength: state.grid_length,
-      population: state.population,
-      rounds: state.rounds,
-      recomType: state.recom_type,
-    }).then((response)=>{
-      console.log(response);
-    });
-  }
+
   render(){
     const Dashboard = global._Dashboard;
     const Document = global._Document;
@@ -46,7 +35,7 @@ class Main extends React.Component {
         </Box>
         <Box gridArea="console" background={this.props.consoleColor}>
           <Console hoverColor={this.props.hoverColor}
-                   handleRun={this.handleRun} handleResetData={this.props.initData} token={this.props.token}/>
+                   handleRun={this.props.handleRun} handleResetData={this.props.initData} token={this.props.token} websocket={this.props.websocket}/>
         </Box>
         <Box gridArea="footer" background={this.props.bodyColor}>
           <Footer/>

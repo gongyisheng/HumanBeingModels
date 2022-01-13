@@ -17,6 +17,7 @@ class App extends React.Component {
     this.state = {
       token: uuid(10),
       websocket: undefined,
+      connectionStatus: false,
       data: {
         average_score: [],
         exchange_num: [],
@@ -27,11 +28,11 @@ class App extends React.Component {
   }
   //websocket
   onOpen = (websocket) => {
-    console.log('WebSocket连接成功，状态码：', websocket.target.readyState);
+    console.log('WebSocket connected with status code ', websocket.target.readyState);
     console.log('token: ',this.state.token);
   };
   onMessage = (event) => {
-    //console.log('WebSocket收到消息：', event.data);
+    //console.log('WebSocket message received:', event.data);
     const { average_score,exchange_num, } = this.state.data;
     const arr = event.data.split("#");
     for(let i=0;i<arr.length;i++){
@@ -47,10 +48,10 @@ class App extends React.Component {
     });
   };
   onError = (websocket) => {
-    console.log('WebSocket连接错误，状态码：', websocket.target.readyState)
+    console.log('WebSocket error with status code ', websocket.target.readyState)
   };
   onClose = (websocket) => {
-    console.log('WebSocket连接关闭，状态码：', websocket.target.readyState)
+    console.log('WebSocket disconnected with status code ', websocket.target.readyState)
   };
 
   initWebSocket = (websocket) => {
@@ -81,17 +82,32 @@ class App extends React.Component {
     });
   }
 
+  handleRun(state){
+    console.log("run");
+    axios.post('/socialNetwork/run',{
+      token: state.token,
+      gridLength: state.grid_length,
+      population: state.population,
+      rounds: state.rounds,
+      recomType: state.recom_type,
+    }).then((response)=>{
+      console.log(response);
+    });
+  }
+
   componentDidMount() {
     if ('WebSocket' in window) {
       //Address  ws://127.0.0.1:8880/ws/xxx
-      let websocket = new WebSocket(process.env.REACT_APP_WS_SERVER + '/ws/' + this.state.token);
-      this.initWebSocket(websocket);
-      this.setState({
-        websocket: websocket,
-      });
+      this.websocket = new WebSocket(process.env.REACT_APP_WS_SERVER + '/ws/' + this.state.token);
+      this.initWebSocket(this.websocket);
     } else {
       alert("Your browser version is too old! Please upgrade your browser to the latest version, or use a different browser.");
     }
+  }
+
+  componentWillUnmount() {
+    this.onclose(this.websocket);
+    this.websocket = null;
   }
 
   render(){
@@ -111,7 +127,7 @@ class App extends React.Component {
         </Box>
         <Box gridArea="main" background="light-2">
           <Main bodyColor="light-2" consoleColor="dark-1" hoverColor="dark-5"
-                websocket={this.state.websocket} token={this.state.token} data={this.state.data} initData={this.initData}/>
+                token={this.state.token} data={this.state.data} initData={this.initData} handleRun={this.handleRun} websocket={this.websocket}/>
         </Box>
       </Grid>
     </Grommet>

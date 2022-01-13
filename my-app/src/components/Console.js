@@ -13,6 +13,7 @@ class Console extends React.Component {
       population_ratio: 0.5,
       recom_type_name: ["No Recommendation","Single Side Recommendation","Double Side Recommendation"],
       recom_type_toggle: false,
+      websocket: this.props.websocket,
     }
   }
 
